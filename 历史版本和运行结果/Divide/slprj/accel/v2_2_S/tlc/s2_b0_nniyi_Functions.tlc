@@ -1,0 +1,275 @@
+%implements s2_b0_nniyi_Functions "C"
+
+%function RandSrcInitState_GZ_Fcn0(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T i;
+/* RandSrcInitState_GZ */
+for (i = 0; i < nChans; i++) {
+    state[i << 1] = 362436069U;
+    state[(i << 1) + 1] = seed[i] == 0U ? 521288629U : seed[i];
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("RandSrcInitState_GZ", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "RandSrcInitState_GZ"))
+%<SLibCG_AccessArg(0, 0, 3)>
+%endif
+%if SLibCG_ArgAccessed(0, 0, 3)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "RandSrcInitState_GZ", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "RandSrcInitState_GZ"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(0, 0, 3)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern void RandSrcInitState_GZ(\
+%assign comma = ""
+%<comma>const uint32_T seed[]\
+%assign comma = ", "
+%<comma>uint32_T state[]\
+%assign comma = ", "
+%<comma>int32_T nChans\
+%assign comma = ", "
+%if SLibCG_ArgAccessed(0, 0, 3)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function RandSrc_GZ_Z_Fcn1(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T i;
+int32_T j;
+real_T r;
+real_T x;
+real_T s;
+real_T y_0;
+int32_T chan;
+real_T std;
+uint32_T icng;
+uint32_T jsr;
+int32_T samp;
+real_T resultsVal[2];
+real_T mean_0[2];
+static const real_T vt[65] = { 0.340945, 0.4573146, 0.5397793, 0.6062427, 0.6631691, 0.7136975, 0.7596125, 0.8020356, 0.8417227, 0.8792102, 0.9148948, 0.9490791, 0.9820005, 1.0138492, 1.044781, 1.0749254, 1.1043917, 1.1332738, 1.161653, 1.189601, 1.2171815, 1.2444516, 1.2714635, 1.298265, 1.3249008, 1.3514125, 1.3778399, 1.4042211, 1.4305929, 1.4569915, 1.4834527, 1.5100122, 1.5367061, 1.5635712, 1.5906454, 1.617968, 1.6455802, 1.6735255, 1.7018503, 1.7306045, 1.7598422, 1.7896223, 1.8200099, 1.851077, 1.8829044, 1.9155831, 1.9492166, 1.9839239, 2.0198431, 2.0571356, 2.095993, 2.136645, 2.1793713, 2.2245175, 2.2725186, 2.3239338, 2.3795008, 2.4402218, 2.5075117, 2.5834658, 2.6713916, 2.7769942, 2.7769942, 2.7769942, 2.7769942 };
+/* RandSrc_GZ_Z */
+nSamps += nSamps;
+for (chan = 0; chan < nChans; chan++) {
+    std = xstd[xstdLen > 1 ? chan : 0];
+    icng = state[chan << 1];
+    jsr = state[(chan << 1) + 1];
+    mean_0[0U] = mean[meanLen > 1 ? chan : 0].re;
+    mean_0[1U] = mean[meanLen > 1 ? chan : 0].im;
+    for (samp = 0; samp < nSamps; samp++) {
+        icng = 69069U * icng + 1234567U;
+        jsr ^= jsr << 13;
+        jsr ^= jsr >> 17;
+        jsr ^= jsr << 5;
+        i = (int32_T)(icng + jsr);
+        j = (i & 63) + 1;
+        r = (real_T)i * 4.6566128730773926E-10 * vt[j];
+        if (!(muDoubleScalarAbs(r) <= vt[j - 1])) {
+            x = (muDoubleScalarAbs(r) - vt[j - 1]) / (vt[j] - vt[j - 1]);
+            icng = 69069U * icng + 1234567U;
+            jsr ^= jsr << 13;
+            jsr ^= jsr >> 17;
+            jsr ^= jsr << 5;
+            y_0 = (real_T)(int32_T)(icng + jsr) * 2.328306436538696E-10 + 0.5;
+            s = x + y_0;
+            if (s > 1.301198) {
+                r = r < 0.0 ? 0.4878992 * x - 0.4878992 : 0.4878992 - 0.4878992 * x;
+            } else {
+                if (!(s <= 0.9689279)) {
+                    x = 0.4878992 - 0.4878992 * x;
+                    if (y_0 > 12.67706 - muDoubleScalarExp(-0.5 * x * x) * 12.37586) {
+                        r = r < 0.0 ? -x : x;
+                    } else {
+                        if (!(muDoubleScalarExp(-0.5 * vt[j] * vt[j]) + y_0 * 0.01958303 / vt[j] <= muDoubleScalarExp(-0.5 * r * r))) {
+                            do {
+                                icng = 69069U * icng + 1234567U;
+                                jsr ^= jsr << 13;
+                                jsr ^= jsr >> 17;
+                                jsr ^= jsr << 5;
+                                x = muDoubleScalarLog((real_T)(int32_T)(icng + jsr) * 2.328306436538696E-10 + 0.5) / 2.776994;
+                                icng = 69069U * icng + 1234567U;
+                                jsr ^= jsr << 13;
+                                jsr ^= jsr >> 17;
+                                jsr ^= jsr << 5;
+                            } while (muDoubleScalarLog((real_T)(int32_T)(icng + jsr) * 2.328306436538696E-10 + 0.5) * -2.0 <= x * x);
+                            r = r < 0.0 ? x - 2.776994 : 2.776994 - x;
+                        }
+                    }
+                }
+            }
+        }
+        resultsVal[samp & 1] = mean_0[samp & 1] + std * r;
+        if ((samp & 1) != 0) {
+            y[chan * (nSamps >> 1) + (samp >> 1)].re = resultsVal[0U];
+            y[chan * (nSamps >> 1) + (samp >> 1)].im = resultsVal[1U];
+        }
+    }
+    state[chan << 1] = icng;
+    state[(chan << 1) + 1] = jsr;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("RandSrc_GZ_Z", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "RandSrc_GZ_Z"))
+%<SLibCG_AccessArg(0, 1, 8)>
+%endif
+%if SLibCG_ArgAccessed(0, 1, 8)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "RandSrc_GZ_Z", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "RandSrc_GZ_Z"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(0, 1, 8)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern void RandSrc_GZ_Z(\
+%assign comma = ""
+%<comma>creal_T y[]\
+%assign comma = ", "
+%<comma>const creal_T mean[]\
+%assign comma = ", "
+%<comma>int32_T meanLen\
+%assign comma = ", "
+%<comma>const real_T xstd[]\
+%assign comma = ", "
+%<comma>int32_T xstdLen\
+%assign comma = ", "
+%<comma>uint32_T state[]\
+%assign comma = ", "
+%<comma>int32_T nChans\
+%assign comma = ", "
+%<comma>int32_T nSamps\
+%assign comma = ", "
+%if SLibCG_ArgAccessed(0, 1, 8)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function ACS_fxp_s32_s32_Fcn2(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T minstate;
+int32_T stateIdx;
+int32_T renorm;
+int32_T inpIdx;
+int32_T nextStateIdx;
+int32_T tmpIdx;
+int32_T q0;
+int32_T qY;
+renorm = maxValue;
+for (stateIdx = 0; stateIdx < numStates; stateIdx++) {
+    pTempMetric[stateIdx] = maxValue;
+}
+for (stateIdx = 0; stateIdx < numStates; stateIdx++) {
+    q0 = pStateMet[stateIdx];
+    for (inpIdx = 0; inpIdx < alpha; inpIdx++) {
+        qY = inpIdx * numStates + stateIdx;
+        nextStateIdx = (int32_T)pNxtSt[qY];
+        qY = pBMet[pEncOut[qY]];
+        if ((q0 < 0) && (qY < MIN_int32_T - q0)) {
+            qY = MIN_int32_T;
+        } else if ((q0 > 0) && (qY > MAX_int32_T - q0)) {
+            qY = MAX_int32_T;
+        } else {
+            qY += q0;
+        }
+        if (qY < pTempMetric[nextStateIdx]) {
+            tmpIdx = numStates * pTbPtr[0U] + nextStateIdx;
+            pTbState[tmpIdx] = (uint32_T)stateIdx;
+            pTbInput[tmpIdx] = (uint32_T)inpIdx;
+            pTempMetric[nextStateIdx] = qY;
+            if (pTempMetric[nextStateIdx] < renorm) {
+                renorm = pTempMetric[nextStateIdx];
+            }
+        }
+    }
+}
+/* Update (and renormalize) state metrics, then find  */
+/*  minimum metric state for start of traceback */
+minstate = 0;
+for (stateIdx = 0; stateIdx < numStates; stateIdx++) {
+    q0 = pTempMetric[stateIdx];
+    if ((q0 >= 0) && (renorm < q0 - MAX_int32_T)) {
+        qY = MAX_int32_T;
+    } else if ((q0 < 0) && (renorm > q0 - MIN_int32_T)) {
+        qY = MIN_int32_T;
+    } else {
+        qY = q0 - renorm;
+    }
+    pStateMet[stateIdx] = qY;
+    if (qY == 0) {
+        minstate = stateIdx;
+    }
+}
+return minstate;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("ACS_fxp_s32_s32", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "ACS_fxp_s32_s32"))
+%<SLibCG_AccessArg(0, 2, 11)>
+%endif
+%if SLibCG_ArgAccessed(0, 2, 11)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "ACS_fxp_s32_s32", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "ACS_fxp_s32_s32"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(0, 2, 11)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern int32_T ACS_fxp_s32_s32(\
+%assign comma = ""
+%<comma>const int32_T numStates\
+%assign comma = ", "
+%<comma>int32_T pTempMetric[]\
+%assign comma = ", "
+%<comma>const int32_T alpha\
+%assign comma = ", "
+%<comma>const int32_T pBMet[]\
+%assign comma = ", "
+%<comma>int32_T pStateMet[]\
+%assign comma = ", "
+%<comma>uint32_T pTbState[]\
+%assign comma = ", "
+%<comma>uint32_T pTbInput[]\
+%assign comma = ", "
+%<comma>const int32_T pTbPtr[]\
+%assign comma = ", "
+%<comma>const uint32_T pNxtSt[]\
+%assign comma = ", "
+%<comma>const uint32_T pEncOut[]\
+%assign comma = ", "
+%<comma>const int32_T maxValue\
+%assign comma = ", "
+%if SLibCG_ArgAccessed(0, 2, 11)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%return fcnBuff
+%endfunction
+

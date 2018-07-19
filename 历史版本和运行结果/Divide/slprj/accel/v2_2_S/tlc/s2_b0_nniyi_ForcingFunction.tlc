@@ -1,0 +1,42 @@
+%implements s2_b0_nniyi_ForcingFunction "C"
+
+%function ForcingFunction(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+B_v2_2_S_T *_rtB;
+XDot_v2_2_S_T *_rtXdot;
+%closefile localVarDecl
+%<SLibCG_TrackContStatesDerivative(2)>\
+_rtXdot = %<(SLibCG_SE(SLibGetContStatesDerivativeStructPtr()))>;
+%<SLibCG_TrackBlockIO(2)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+memcpy(&_rtXdot->integrator_CSTATE[0], &_rtB->B_2_29_0[0], 2000U * sizeof(real_T));
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("ForcingFunction", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "ForcingFunction"))
+%<SLibCG_AccessArg(0, 7, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 7, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "ForcingFunction", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "ForcingFunction"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(0, 7, 0)>
+%endif
+%<LibSetSystemField(system, "CachedForcingFunctionLocalVars", localVarDecl)>
+%endfunction
+%function ForcingFunctionFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void ForcingFunction(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 7, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 7, fcnProtoType)>
+%endfunction

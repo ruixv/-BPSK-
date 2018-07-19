@@ -1,0 +1,507 @@
+%implements s2_b0_6khyi_Functions "C"
+
+%function h5pgkuaadc_Fcn0(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+return 7U;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static uint32_T h5pgkuaadc(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function RandSrcInitState_GZ_Fcn1(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T i;
+/* RandSrcInitState_GZ */
+for (i = 0; i < nChans; i++) {
+    state[i << 1] = 362436069U;
+    state[(i << 1) + 1] = seed[i] == 0U ? 521288629U : seed[i];
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern void RandSrcInitState_GZ(\
+%assign comma = ""
+%<comma>const uint32_T seed[]\
+%assign comma = ", "
+%<comma>uint32_T state[]\
+%assign comma = ", "
+%<comma>int32_T nChans\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function konfn5yqwn_Fcn2(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+uint32_T u[2];
+uint32_T mti;
+uint32_T y;
+int32_T j;
+int32_T kk;
+memcpy(&state_p[0], &state[0], 625U * sizeof(uint32_T));
+/* <LEGAL>========================= COPYRIGHT NOTICE ============================ */
+/* <LEGAL> This is a uniform (0,1) pseudorandom number generator based on:        */
+/* <LEGAL>                                                                        */
+/* <LEGAL> A C-program for MT19937, with initialization improved 2002/1/26.       */
+/* <LEGAL> Coded by Takuji Nishimura and Makoto Matsumoto.                        */
+/* <LEGAL>                                                                        */
+/* <LEGAL> Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,      */
+/* <LEGAL> All rights reserved.                                                   */
+/* <LEGAL>                                                                        */
+/* <LEGAL> Redistribution and use in source and binary forms, with or without     */
+/* <LEGAL> modification, are permitted provided that the following conditions     */
+/* <LEGAL> are met:                                                               */
+/* <LEGAL>                                                                        */
+/* <LEGAL>   1. Redistributions of source code must retain the above copyright    */
+/* <LEGAL>      notice, this list of conditions and the following disclaimer.     */
+/* <LEGAL>                                                                        */
+/* <LEGAL>   2. Redistributions in binary form must reproduce the above copyright */
+/* <LEGAL>      notice, this list of conditions and the following disclaimer      */
+/* <LEGAL>      in the documentation and/or other materials provided with the     */
+/* <LEGAL>      distribution.                                                     */
+/* <LEGAL>                                                                        */
+/* <LEGAL>   3. The names of its contributors may not be used to endorse or       */
+/* <LEGAL>      promote products derived from this software without specific      */
+/* <LEGAL>      prior written permission.                                         */
+/* <LEGAL>                                                                        */
+/* <LEGAL> THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS    */
+/* <LEGAL> "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT      */
+/* <LEGAL> LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR  */
+/* <LEGAL> A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT  */
+/* <LEGAL> OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,  */
+/* <LEGAL> SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT       */
+/* <LEGAL> LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,  */
+/* <LEGAL> DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY  */
+/* <LEGAL> THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT    */
+/* <LEGAL> (INCLUDING  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE */
+/* <LEGAL> OF THIS  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  */
+/* <LEGAL>                                                                        */
+/* <LEGAL>=============================   END   ================================= */
+do {
+    for (j = 0; j < 2; j++) {
+        mti = state_p[624] + 1U;
+        if (mti >= 625U) {
+            for (kk = 0; kk < 227; kk++) {
+                y = (state_p[kk + 1] & 2147483647U) | (state_p[kk] & 2147483648U);
+                if ((int32_T)(y & 1U) == 0) {
+                    y >>= 1U;
+                } else {
+                    y = y >> 1U ^ 2567483615U;
+                }
+                state_p[kk] = state_p[kk + 397] ^ y;
+            }
+            for (kk = 0; kk < 396; kk++) {
+                y = (state_p[kk + 227] & 2147483648U) | (state_p[kk + 228] & 2147483647U);
+                if ((int32_T)(y & 1U) == 0) {
+                    y >>= 1U;
+                } else {
+                    y = y >> 1U ^ 2567483615U;
+                }
+                state_p[kk + 227] = state_p[kk] ^ y;
+            }
+            y = (state_p[623] & 2147483648U) | (state_p[0] & 2147483647U);
+            mti = 1U;
+            if ((int32_T)(y & 1U) == 0) {
+                y >>= 1U;
+            } else {
+                y = y >> 1U ^ 2567483615U;
+            }
+            state_p[623] = state_p[396] ^ y;
+        }
+        y = state_p[(int32_T)mti - 1];
+        state_p[624] = mti;
+        y ^= y >> 11U;
+        y ^= y << 7U & 2636928640U;
+        y ^= y << 15U & 4022730752U;
+        y ^= y >> 18U;
+        u[j] = y;
+    }
+    *r = ((real_T)(u[0] >> 5U) * 6.7108864E+7 + (real_T)(u[1] >> 6U)) * 1.1102230246251565E-16;
+} while (*r == 0.0);
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void konfn5yqwn(\
+%assign comma = ""
+%<comma>const uint32_T state[625]\
+%assign comma = ", "
+%<comma>uint32_T state_p[625]\
+%assign comma = ", "
+%<comma>real_T *r\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function pncoxqsm0f_Fcn3(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+uint32_T state[625];
+real_T tmp;
+uint32_T INIT_FACTOR;
+uint32_T r_p;
+int32_T mti;
+if (rtDW.hbt2br2fzc == 4U) {
+    for (mti = 0; mti < 1000; mti++) {
+        INIT_FACTOR = rtDW.cjouv351ku / 127773U;
+        r_p = (rtDW.cjouv351ku - INIT_FACTOR * 127773U) * 16807U;
+        INIT_FACTOR *= 2836U;
+        if (r_p < INIT_FACTOR) {
+            INIT_FACTOR = (r_p - INIT_FACTOR) + 2147483647U;
+        } else {
+            INIT_FACTOR = r_p - INIT_FACTOR;
+        }
+        rtDW.cjouv351ku = INIT_FACTOR;
+        r[mti] = (real_T)INIT_FACTOR * 4.6566128752457969E-10;
+    }
+} else if (rtDW.hbt2br2fzc == 5U) {
+    for (mti = 0; mti < 1000; mti++) {
+        INIT_FACTOR = 69069U * rtDW.gfniyjcczv[0] + 1234567U;
+        r_p = rtDW.gfniyjcczv[1] << 13 ^ rtDW.gfniyjcczv[1];
+        r_p ^= r_p >> 17;
+        r_p ^= r_p << 5;
+        rtDW.gfniyjcczv[0] = INIT_FACTOR;
+        rtDW.gfniyjcczv[1] = r_p;
+        r[mti] = (real_T)(INIT_FACTOR + r_p) * 2.328306436538696E-10;
+    }
+} else {
+    if (!rtDW.nyjftlvtyx) {
+        memset(&rtDW.gzd0ucz5q3[0], 0, 625U * sizeof(uint32_T));
+        r_p = 5489U;
+        rtDW.gzd0ucz5q3[0] = 5489U;
+        for (mti = 0; mti < 623; mti++) {
+            r_p = (r_p >> 30U ^ r_p) * 1812433253U + (mti + 1);
+            rtDW.gzd0ucz5q3[mti + 1] = r_p;
+        }
+        rtDW.gzd0ucz5q3[624] = 624U;
+        rtDW.nyjftlvtyx = true;
+    }
+    for (mti = 0; mti < 1000; mti++) {
+        %<(SLibCGCallSubFcn("konfn5yqwn", ["rtDW.gzd0ucz5q3", "state", "&tmp"], 0, 3, 0))>;
+        memcpy(&rtDW.gzd0ucz5q3[0], &state[0], 625U * sizeof(uint32_T));
+        r[mti] = tmp;
+    }
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void pncoxqsm0f(\
+%assign comma = ""
+%<comma>real_T r[1000]\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 3, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function RandSrc_GZ_Z_Fcn4(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T i;
+int32_T j;
+real_T r;
+real_T x;
+real_T s;
+real_T y_p;
+int32_T chan;
+real_T std;
+uint32_T icng;
+uint32_T jsr;
+int32_T samp;
+real_T resultsVal[2];
+real_T mean_p[2];
+static const real_T vt[65] = { 0.340945, 0.4573146, 0.5397793, 0.6062427, 0.6631691, 0.7136975, 0.7596125, 0.8020356, 0.8417227, 0.8792102, 0.9148948, 0.9490791, 0.9820005, 1.0138492, 1.044781, 1.0749254, 1.1043917, 1.1332738, 1.161653, 1.189601, 1.2171815, 1.2444516, 1.2714635, 1.298265, 1.3249008, 1.3514125, 1.3778399, 1.4042211, 1.4305929, 1.4569915, 1.4834527, 1.5100122, 1.5367061, 1.5635712, 1.5906454, 1.617968, 1.6455802, 1.6735255, 1.7018503, 1.7306045, 1.7598422, 1.7896223, 1.8200099, 1.851077, 1.8829044, 1.9155831, 1.9492166, 1.9839239, 2.0198431, 2.0571356, 2.095993, 2.136645, 2.1793713, 2.2245175, 2.2725186, 2.3239338, 2.3795008, 2.4402218, 2.5075117, 2.5834658, 2.6713916, 2.7769942, 2.7769942, 2.7769942, 2.7769942 };
+/* RandSrc_GZ_Z */
+nSamps += nSamps;
+for (chan = 0; chan < nChans; chan++) {
+    std = xstd[xstdLen > 1 ? chan : 0];
+    icng = state[chan << 1];
+    jsr = state[(chan << 1) + 1];
+    mean_p[0U] = mean[meanLen > 1 ? chan : 0].re;
+    mean_p[1U] = mean[meanLen > 1 ? chan : 0].im;
+    for (samp = 0; samp < nSamps; samp++) {
+        icng = 69069U * icng + 1234567U;
+        jsr ^= jsr << 13;
+        jsr ^= jsr >> 17;
+        jsr ^= jsr << 5;
+        i = (int32_T)(icng + jsr);
+        j = (i & 63) + 1;
+        r = (real_T)i * 4.6566128730773926E-10 * vt[j];
+        if (!(muDoubleScalarAbs(r) <= vt[j - 1])) {
+            x = (muDoubleScalarAbs(r) - vt[j - 1]) / (vt[j] - vt[j - 1]);
+            icng = 69069U * icng + 1234567U;
+            jsr ^= jsr << 13;
+            jsr ^= jsr >> 17;
+            jsr ^= jsr << 5;
+            y_p = (real_T)(int32_T)(icng + jsr) * 2.328306436538696E-10 + 0.5;
+            s = x + y_p;
+            if (s > 1.301198) {
+                r = r < 0.0 ? 0.4878992 * x - 0.4878992 : 0.4878992 - 0.4878992 * x;
+            } else {
+                if (!(s <= 0.9689279)) {
+                    x = 0.4878992 - 0.4878992 * x;
+                    if (y_p > 12.67706 - muDoubleScalarExp(-0.5 * x * x) * 12.37586) {
+                        r = r < 0.0 ? -x : x;
+                    } else {
+                        if (!(muDoubleScalarExp(-0.5 * vt[j] * vt[j]) + y_p * 0.01958303 / vt[j] <= muDoubleScalarExp(-0.5 * r * r))) {
+                            do {
+                                icng = 69069U * icng + 1234567U;
+                                jsr ^= jsr << 13;
+                                jsr ^= jsr >> 17;
+                                jsr ^= jsr << 5;
+                                x = muDoubleScalarLog((real_T)(int32_T)(icng + jsr) * 2.328306436538696E-10 + 0.5) / 2.776994;
+                                icng = 69069U * icng + 1234567U;
+                                jsr ^= jsr << 13;
+                                jsr ^= jsr >> 17;
+                                jsr ^= jsr << 5;
+                            } while (muDoubleScalarLog((real_T)(int32_T)(icng + jsr) * 2.328306436538696E-10 + 0.5) * -2.0 <= x * x);
+                            r = r < 0.0 ? x - 2.776994 : 2.776994 - x;
+                        }
+                    }
+                }
+            }
+        }
+        resultsVal[samp & 1] = mean_p[samp & 1] + std * r;
+        if ((samp & 1) != 0) {
+            y[chan * (nSamps >> 1) + (samp >> 1)].re = resultsVal[0U];
+            y[chan * (nSamps >> 1) + (samp >> 1)].im = resultsVal[1U];
+        }
+    }
+    state[chan << 1] = icng;
+    state[(chan << 1) + 1] = jsr;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern void RandSrc_GZ_Z(\
+%assign comma = ""
+%<comma>creal_T y[]\
+%assign comma = ", "
+%<comma>const creal_T mean[]\
+%assign comma = ", "
+%<comma>int32_T meanLen\
+%assign comma = ", "
+%<comma>const real_T xstd[]\
+%assign comma = ", "
+%<comma>int32_T xstdLen\
+%assign comma = ", "
+%<comma>uint32_T state[]\
+%assign comma = ", "
+%<comma>int32_T nChans\
+%assign comma = ", "
+%<comma>int32_T nSamps\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 4, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function ACS_fxp_u16_u2_Fcn5(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T minstate;
+int32_T stateIdx;
+uint16_T renorm;
+int32_T offsetIdx;
+int32_T nextStateIdx;
+uint16_T tmpVal;
+int32_T q0;
+uint32_T qY;
+renorm = maxValue;
+for (stateIdx = 0; stateIdx < numStates; stateIdx++) {
+    pTempMetric[stateIdx] = maxValue;
+}
+for (stateIdx = 0; stateIdx < numStates; stateIdx++) {
+    tmpVal = pStateMet[stateIdx];
+    for (q0 = 0; q0 < alpha; q0++) {
+        offsetIdx = q0 * numStates + stateIdx;
+        nextStateIdx = (int32_T)pNxtSt[offsetIdx];
+        qY = (uint32_T)tmpVal + pBMet[pEncOut[offsetIdx]];
+        if (qY > 65535U) {
+            qY = 65535U;
+        }
+        if ((uint16_T)qY < pTempMetric[nextStateIdx]) {
+            offsetIdx = numStates * pTbPtr[0U] + nextStateIdx;
+            pTbState[offsetIdx] = (uint32_T)stateIdx;
+            pTbInput[offsetIdx] = (uint32_T)q0;
+            pTempMetric[nextStateIdx] = (uint16_T)qY;
+            if (pTempMetric[nextStateIdx] < renorm) {
+                renorm = pTempMetric[nextStateIdx];
+            }
+        }
+    }
+}
+/* Update (and renormalize) state metrics, then find  */
+/*  minimum metric state for start of traceback */
+minstate = 0;
+for (stateIdx = 0; stateIdx < numStates; stateIdx++) {
+    q0 = pTempMetric[stateIdx];
+    qY = (uint32_T)q0 - renorm;
+    if (qY > (uint32_T)q0) {
+        qY = 0U;
+    }
+    pStateMet[stateIdx] = (uint16_T)qY;
+    if ((uint16_T)qY == 0) {
+        minstate = stateIdx;
+    }
+}
+return minstate;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern int32_T ACS_fxp_u16_u2(\
+%assign comma = ""
+%<comma>const int32_T numStates\
+%assign comma = ", "
+%<comma>uint16_T pTempMetric[]\
+%assign comma = ", "
+%<comma>const int32_T alpha\
+%assign comma = ", "
+%<comma>const uint8_T pBMet[]\
+%assign comma = ", "
+%<comma>uint16_T pStateMet[]\
+%assign comma = ", "
+%<comma>uint32_T pTbState[]\
+%assign comma = ", "
+%<comma>uint32_T pTbInput[]\
+%assign comma = ", "
+%<comma>const int32_T pTbPtr[]\
+%assign comma = ", "
+%<comma>const uint32_T pNxtSt[]\
+%assign comma = ", "
+%<comma>const uint32_T pEncOut[]\
+%assign comma = ", "
+%<comma>const uint16_T maxValue\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 5, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function ACS_fxp_s32_s32_Fcn6(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T minstate;
+int32_T stateIdx;
+int32_T renorm;
+int32_T inpIdx;
+int32_T nextStateIdx;
+int32_T tmpIdx;
+int32_T q0;
+int32_T qY;
+renorm = maxValue;
+for (stateIdx = 0; stateIdx < numStates; stateIdx++) {
+    pTempMetric[stateIdx] = maxValue;
+}
+for (stateIdx = 0; stateIdx < numStates; stateIdx++) {
+    q0 = pStateMet[stateIdx];
+    for (inpIdx = 0; inpIdx < alpha; inpIdx++) {
+        qY = inpIdx * numStates + stateIdx;
+        nextStateIdx = (int32_T)pNxtSt[qY];
+        qY = pBMet[pEncOut[qY]];
+        if ((q0 < 0) && (qY < MIN_int32_T - q0)) {
+            qY = MIN_int32_T;
+        } else if ((q0 > 0) && (qY > MAX_int32_T - q0)) {
+            qY = MAX_int32_T;
+        } else {
+            qY += q0;
+        }
+        if (qY < pTempMetric[nextStateIdx]) {
+            tmpIdx = numStates * pTbPtr[0U] + nextStateIdx;
+            pTbState[tmpIdx] = (uint32_T)stateIdx;
+            pTbInput[tmpIdx] = (uint32_T)inpIdx;
+            pTempMetric[nextStateIdx] = qY;
+            if (pTempMetric[nextStateIdx] < renorm) {
+                renorm = pTempMetric[nextStateIdx];
+            }
+        }
+    }
+}
+/* Update (and renormalize) state metrics, then find  */
+/*  minimum metric state for start of traceback */
+minstate = 0;
+for (stateIdx = 0; stateIdx < numStates; stateIdx++) {
+    q0 = pTempMetric[stateIdx];
+    if ((q0 >= 0) && (renorm < q0 - MAX_int32_T)) {
+        qY = MAX_int32_T;
+    } else if ((q0 < 0) && (renorm > q0 - MIN_int32_T)) {
+        qY = MIN_int32_T;
+    } else {
+        qY = q0 - renorm;
+    }
+    pStateMet[stateIdx] = qY;
+    if (qY == 0) {
+        minstate = stateIdx;
+    }
+}
+return minstate;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern int32_T ACS_fxp_s32_s32(\
+%assign comma = ""
+%<comma>const int32_T numStates\
+%assign comma = ", "
+%<comma>int32_T pTempMetric[]\
+%assign comma = ", "
+%<comma>const int32_T alpha\
+%assign comma = ", "
+%<comma>const int32_T pBMet[]\
+%assign comma = ", "
+%<comma>int32_T pStateMet[]\
+%assign comma = ", "
+%<comma>uint32_T pTbState[]\
+%assign comma = ", "
+%<comma>uint32_T pTbInput[]\
+%assign comma = ", "
+%<comma>const int32_T pTbPtr[]\
+%assign comma = ", "
+%<comma>const uint32_T pNxtSt[]\
+%assign comma = ", "
+%<comma>const uint32_T pEncOut[]\
+%assign comma = ", "
+%<comma>const int32_T maxValue\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 6, fcnProtoType)>
+%return fcnBuff
+%endfunction
+

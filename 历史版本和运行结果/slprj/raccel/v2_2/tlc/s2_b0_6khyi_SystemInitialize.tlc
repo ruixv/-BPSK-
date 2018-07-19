@@ -1,0 +1,66 @@
+%implements s2_b0_6khyi_SystemInitialize "C"
+
+%function SystemInitialize(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+int32_T i;
+%closefile localVarDecl
+%<SLibGetRootInportsFromFile(system, TLC_TRUE)>
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+rtDW.mzxjssz1dj = 0U;
+rtDW.cus4dldwo0 = rtP.AWGNChannel1_seed;
+%<(SLibCGCallSubFcn("RandSrcInitState_GZ", ["&rtDW.cus4dldwo0", "rtDW.fegn3yjkdl", "1"], 0, 8, 0))>;
+/* Set state metric for all zeros state equal to zero and all other state metrics equal to max values */
+rtDW.dwwrx1ewft = 32767;
+rtDW.ijgcmqcpnx[0U] = 0;
+for (i = 0; i < 255; i++) {
+    rtDW.ijgcmqcpnx[i + 1] = 32767;
+}
+/* Set traceback memory to zero */
+memset(&rtDW.ovvf3acabt[0], 0, 16640U * sizeof(uint32_T));
+memset(&rtDW.e4wo51thd0[0], 0, 16640U * sizeof(uint32_T));
+rtDW.gbrz1s5yl1 = 0;
+rtDW.dk0duuz2ek = 0.0;
+rtDW.ovm0dm2lv5 = 0.0;
+rtDW.cz13snq0u4 = 0;
+rtDW.hf0gtxgtu3 = 0;
+for (i = 0; i < 1000; i++) {
+    rtDW.odmtinmbsl[i] = true;
+}
+/* Set state metric for all zeros state equal to zero and all other state metrics equal to max values */
+rtDW.jdicyuktcx = 32767U;
+rtDW.k2lcdnm3ar[0U] = 0U;
+for (i = 0; i < 255; i++) {
+    rtDW.k2lcdnm3ar[i + 1] = 32767U;
+}
+/* Set traceback memory to zero */
+memset(&rtDW.bijyajwwui[0], 0, 16640U * sizeof(uint32_T));
+memset(&rtDW.dm3rt02hxt[0], 0, 16640U * sizeof(uint32_T));
+rtDW.austahaygk = 0;
+rtDW.candgvoyhp = 0.0;
+rtDW.gmiet4ar11 = 0.0;
+rtDW.gogj4hvzov = 0;
+rtDW.aoxbt3zfyo = 0;
+for (i = 0; i < 1000; i++) {
+    rtDW.kgigck4tso[i] = true;
+}
+for (i = 0; i < 2000; i++) {
+    rtX.gk2cl13qcc[i] = rtP.integrator_IC;
+    rtDW.c5mww0gz4f[i] = rtP.Memory_X0;
+}
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedSystemInitializeLocalVars", localVarDecl)>
+%endfunction
+%function SystemInitializeFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void SystemInitialize(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 8, fcnProtoType)>
+%endfunction

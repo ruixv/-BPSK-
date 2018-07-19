@@ -1,0 +1,22 @@
+%implements s2_b0_aniyi_Update "C"
+
+%function Update(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcUpdateFcnOfS2B2 = OpaqueTLCBlockFcn("Update", 2, 2, 0, 9)
+%<tlcUpdateFcnOfS2B2>\
+if (%<(SLibCGIRIsSampleHit(1, 2))>) {
+    memcpy(&rtDW.buwyiexecu[0], &rtB.ntthafcof5[0], 2000U * sizeof(real_T));
+}
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function UpdateFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Update(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 9, fcnProtoType)>
+%endfunction

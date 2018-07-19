@@ -1,0 +1,35 @@
+%implements s2_b0_6khyi_Start "C"
+
+%function Start(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcStartFcnOfS2B2 = OpaqueTLCBlockFcn("Start", 2, 2, 0, 7)
+%assign tlcStartFcnOfS2B5 = OpaqueTLCBlockFcn("Start", 2, 5, 0, 7)
+%assign tlcStartFcnOfS2B6 = OpaqueTLCBlockFcn("Start", 2, 6, 0, 7)
+%assign tlcStartFcnOfS2B7 = OpaqueTLCBlockFcn("Start", 2, 7, 0, 7)
+rtDW.hbt2br2fzc = %<(SLibCGCallSubFcn("h5pgkuaadc", [], 0, 7, 0))>;
+rtDW.mr2pdadc2w = true;
+rtDW.cjouv351ku = 1144108930U;
+rtDW.ln1jg5iupw = true;
+rtDW.gfniyjcczv[0] = 362436069U;
+rtDW.gfniyjcczv[1] = 521288629U;
+rtDW.im052u5fai = true;
+rtDW.iq1zesmfr0.isInitialized = 0;
+rtDW.d40k3dcbtu = true;
+rtDW.iq1zesmfr0.isInitialized = 1;
+%<tlcStartFcnOfS2B2>\
+%<tlcStartFcnOfS2B5>\
+%<tlcStartFcnOfS2B6>\
+%<tlcStartFcnOfS2B7>\
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function StartFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Start(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 7, fcnProtoType)>
+%endfunction

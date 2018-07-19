@@ -1,0 +1,210 @@
+%implements s2_b0_aniyi_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(13, 0)> %% ayw1w31b1z
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+int32_T inIdx;
+int32_T outIdx;
+uint32_T count;
+int32_T tmpV;
+uint32_T input;
+real_T sym;
+real_T ratio;
+int8_T varargout_1[1000];
+real_T kvdueutvdy;
+int32_T l5xhasoq00[4];
+int32_T iqnoixuoyk[256];
+int8_T mfosafx34a[1000];
+int32_T i;
+int8_T varargout_1_p;
+creal_T g4rielczvg;
+int32_T l5xhasoq00_p;
+%closefile localVarDecl
+%assign tlcOutputsFcnOfS2B1 = OpaqueTLCBlockFcn("Outputs", 2, 1, 0, 8)
+%assign tlcOutputsFcnOfS2B2 = OpaqueTLCBlockFcn("Outputs", 2, 2, 0, 8)
+%assign tlcOutputsFcnOfS2B5 = OpaqueTLCBlockFcn("Outputs", 2, 5, 0, 8)
+%assign tlcOutputsFcnOfS2B6 = OpaqueTLCBlockFcn("Outputs", 2, 6, 0, 8)
+%<SLibGetRootInportsFromFile(system, TLC_FALSE)>
+%<SLibGenerateExtModeOutput(system)>
+if (%<(SLibCGIRIsSampleHit(2, 2))>) {
+    %<(SLibCGCallSubFcn("jf4svcna3c", ["rtB.awbteaead1"], 0, 8, 0))>;
+    for (i = 0; i < 1000; i++) {
+        varargout_1_p = (int8_T)(rtB.awbteaead1[i] > pj1i5njp2i);
+        outIdx = (int32_T)((varargout_1_p << 8) + rtDW.l3dycg0kzr);
+        rtDW.l3dycg0kzr = rtConstP.d32urjsqxf[outIdx];
+        rtB.c4snoffrqu[(i << 1) + 1] = (int32_T)(rtConstP.n0tgo4giti[outIdx] & 1U);
+        rtB.c4snoffrqu[i << 1] = (int32_T)(rtConstP.n0tgo4giti[outIdx] >> 1U & 1U);
+        varargout_1[i] = varargout_1_p;
+    }
+    for (i = 0; i < 2000; i++) {
+        rtB.kbuwkxudch[i] = rtB.c4snoffrqu[(uint32_T)(rtConstP.g0w355ghaa[i] - 1)];
+    }
+    inIdx = 0;
+    outIdx = 0;
+    for (i = 0; i < 2000; i++) {
+        sym = rtB.kbuwkxudch[inIdx];
+        inIdx++;
+        rtB.jkvhz0a1cd[outIdx].re = rtConstP.j1wj424scc[(int32_T)sym << 1];
+        rtB.jkvhz0a1cd[outIdx].im = rtConstP.j1wj424scc[((int32_T)sym << 1) + 1];
+        outIdx++;
+    }
+    %<(SLibCGCallSubFcn("RandSrc_GZ_Z", ["rtB.fqyvfre515", "&rtP.RandomSource_MeanRTP", "1", "&rtP.RandomSource_VarianceRTP", "1", "rtDW.fz3h4zdejb", "1", "2000"], 0, 8, 2))>;
+    outIdx = 0;
+    rtDW.pofspa0tkz = muDoubleScalarSqrt(rtP.AWGNChannel1_Ps * 1.0E-5 / (muDoubleScalarPower(10.0, rtP.EbN0 / 10.0) * 5.0E-6));
+    for (inIdx = 0; inIdx < 2000; inIdx++) {
+        rtB.mhmaqjlmfv[outIdx].re = rtDW.pofspa0tkz * rtB.fqyvfre515[outIdx].re;
+        rtB.mhmaqjlmfv[outIdx].im = rtDW.pofspa0tkz * rtB.fqyvfre515[outIdx].im;
+        rtB.mhmaqjlmfv[outIdx].re += rtB.jkvhz0a1cd[outIdx].re;
+        rtB.mhmaqjlmfv[outIdx].im += rtB.jkvhz0a1cd[outIdx].im;
+        outIdx++;
+    }
+    for (i = 0; i < 2000; i++) {
+        rtB.kbuwkxudch[i] = rtB.mhmaqjlmfv[i].re;
+        if (rtB.mhmaqjlmfv[i].re > 0.0) {
+            inIdx = 0;
+        } else if (rtB.mhmaqjlmfv[i].re < 0.0) {
+            inIdx = 1;
+        } else {
+            inIdx = !(rtB.mhmaqjlmfv[i].im == 0.0);
+        }
+        rtB.c4snoffrqu[i] = inIdx % 2;
+    }
+    inIdx = 0;
+    outIdx = 0;
+    for (i = 0; i < 2000; i++) {
+        sym = rtB.c4snoffrqu[inIdx];
+        inIdx++;
+        rtB.fqyvfre515[outIdx].re = rtConstP.j1wj424scc[(int32_T)sym << 1];
+        rtB.fqyvfre515[outIdx].im = rtConstP.j1wj424scc[((int32_T)sym << 1) + 1];
+        outIdx++;
+    }
+    for (i = 0; i < 2000; i++) {
+        g4rielczvg.re = rtB.mhmaqjlmfv[i].re - rtB.fqyvfre515[i].re;
+        g4rielczvg.im = rtB.mhmaqjlmfv[i].im - rtB.fqyvfre515[i].im;
+        rtB.mhmaqjlmfv[i] = g4rielczvg;
+    }
+    for (i = 0; i < 2000; i += 2000) {
+        for (inIdx = i; inIdx < i + 1; inIdx++) {
+            rtDW.onq5w0535v = rtB.mhmaqjlmfv[inIdx];
+            rtDW.j4dccex42i = rtB.mhmaqjlmfv[inIdx].re * rtB.mhmaqjlmfv[inIdx].re + rtB.mhmaqjlmfv[inIdx].im * rtB.mhmaqjlmfv[inIdx].im;
+            outIdx = 1;
+            for (tmpV = 1998; tmpV >= 0; tmpV += -1) {
+                l5xhasoq00_p = inIdx + outIdx;
+                rtDW.onq5w0535v.re += rtB.mhmaqjlmfv[l5xhasoq00_p].re;
+                rtDW.onq5w0535v.im += rtB.mhmaqjlmfv[l5xhasoq00_p].im;
+                rtDW.j4dccex42i += rtB.mhmaqjlmfv[l5xhasoq00_p].re * rtB.mhmaqjlmfv[l5xhasoq00_p].re + rtB.mhmaqjlmfv[l5xhasoq00_p].im * rtB.mhmaqjlmfv[l5xhasoq00_p].im;
+                outIdx++;
+            }
+            kvdueutvdy = muDoubleScalarSqrt(muDoubleScalarAbs((rtDW.j4dccex42i - (rtDW.onq5w0535v.re * rtDW.onq5w0535v.re + rtDW.onq5w0535v.im * rtDW.onq5w0535v.im) / 2000.0) / 1999.0));
+        }
+    }
+    for (i = 0; i < 2000; i++) {
+        rtB.inqinqg05x[i] = rtB.kbuwkxudch[i] / kvdueutvdy * rtP.Gain_Gain_i3nepwob24;
+    }
+%<tlcOutputsFcnOfS2B1>\
+    for (i = 0; i < 2000; i++) {
+        rtB.c4snoffrqu[(uint32_T)(rtConstP.g0w355ghaa[i] - 1)] = ayw1w31b1z[i];
+    }
+    for (i = 0; i < 1000; i++) {
+        outIdx = (i << 1) + 1;
+        /* Branch Metric Computation */
+        for (inIdx = 0; inIdx < 4; inIdx++) {
+            tmpV = rtB.c4snoffrqu[outIdx];
+            if ((inIdx & 1) != 0) {
+                tmpV = 255 - rtB.c4snoffrqu[outIdx];
+            }
+            l5xhasoq00_p = tmpV;
+            tmpV = rtB.c4snoffrqu[outIdx - 1];
+            if ((int32_T)((uint32_T)inIdx >> 1) != 0) {
+                tmpV = 255 - rtB.c4snoffrqu[outIdx - 1];
+            }
+            l5xhasoq00_p += tmpV;
+            l5xhasoq00[inIdx] = l5xhasoq00_p;
+        }
+        /* State Metric Update */
+        count = (uint32_T)%<(SLibCGCallSubFcn("ACS_fxp_s32_s32", ["256", "iqnoixuoyk", "2", "l5xhasoq00", "rtDW.k2t2e4f54y", "rtDW.prfucpqesx", "rtDW.d5nvqubrck", "&rtDW.lmsnzyv2zw", "rtConstP.d32urjsqxf", "rtConstP.n0tgo4giti", "32767"], 0, 8, 1))>;
+        /* Traceback decoding */
+        outIdx = rtDW.lmsnzyv2zw;
+        input = 0U;
+        for (inIdx = 0; inIdx < 65; inIdx++) {
+            input = rtDW.d5nvqubrck[(outIdx << 8) + count];
+            count = rtDW.prfucpqesx[(outIdx << 8) + count];
+            if (outIdx > 0) {
+                outIdx--;
+            } else {
+                outIdx = 64;
+            }
+        }
+        mfosafx34a[i] = (int8_T)(input & 1U);
+        /* Increment (mod TbDepth) the traceback index and store */
+        if (rtDW.lmsnzyv2zw < 64) {
+            rtDW.lmsnzyv2zw++;
+        } else {
+            rtDW.lmsnzyv2zw = 0;
+        }
+    }
+    kvdueutvdy = 0.0;
+    sym = 0.0;
+    ratio = 0.0;
+    for (outIdx = 0; outIdx < 1000; outIdx++) {
+        rtDW.clwhijh52r[rtDW.dc0ighltby] = varargout_1[outIdx];
+        if (rtDW.dc0ighltby == 64) {
+            rtDW.dc0ighltby = 0;
+        } else {
+            rtDW.dc0ighltby++;
+        }
+        if (rtDW.mahdpu3oee < 64) {
+            rtDW.mahdpu3oee++;
+        } else {
+            if (rtDW.d44dyg15r1[outIdx]) {
+                sym++;
+                if (rtDW.clwhijh52r[rtDW.dc0ighltby] != mfosafx34a[outIdx]) {
+                    kvdueutvdy++;
+                }
+            }
+        }
+    }
+    rtDW.eqfbcgifho += sym;
+    rtDW.a3slb4jqcr += kvdueutvdy;
+    if (rtDW.eqfbcgifho > 0.0) {
+        ratio = rtDW.a3slb4jqcr / rtDW.eqfbcgifho;
+    }
+    rtB.blnddv0gf5[0U] = ratio;
+    rtB.blnddv0gf5[1U] = rtDW.a3slb4jqcr;
+    rtB.blnddv0gf5[2U] = rtDW.eqfbcgifho;
+}
+memcpy(&rtB.abfoodz5du[0], &rtX.g4ebgkmca2[0], 2000U * sizeof(real_T));
+%<tlcOutputsFcnOfS2B2>\
+if (%<(SLibCGIRIsSampleHit(1, 2))>) {
+    memcpy(&rtB.pmt3agbjm3[0], &rtDW.buwyiexecu[0], 2000U * sizeof(real_T));
+}
+if (%<(SLibCG_SE(LibGetT()))> >= rtP.K1_Value) {
+    for (i = 0; i < 2000; i++) {
+        rtB.ntthafcof5[i] = (rtB.abfoodz5du[i] - rtB.oizzhmpjfq[i]) * rtP.Gain_Gain;
+    }
+} else {
+    memcpy(&rtB.ntthafcof5[0], &rtB.pmt3agbjm3[0], 2000U * sizeof(real_T));
+}
+if (%<(SLibCGIRIsSampleHit(2, 2))>) {
+%<tlcOutputsFcnOfS2B5>\
+    for (i = 0; i < 2000; i++) {
+        rtB.oij02m0ie1[i] = rtB.jkvhz0a1cd[i].re * rtB.jkvhz0a1cd[i].re + rtB.jkvhz0a1cd[i].im * rtB.jkvhz0a1cd[i].im;
+    }
+%<tlcOutputsFcnOfS2B6>\
+}
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
+%function OutputsFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 8, fcnProtoType)>
+%endfunction

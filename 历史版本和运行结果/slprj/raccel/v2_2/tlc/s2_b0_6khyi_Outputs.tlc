@@ -1,0 +1,294 @@
+%implements s2_b0_6khyi_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(14, 0)> %% k4lrmynhm4
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+int32_T inIdx;
+int32_T outIdx;
+uint32_T count;
+int32_T tmpV;
+real_T sym;
+real_T ratio;
+uint8_T tmpV_p;
+uint32_T input;
+int8_T varargout_1[1000];
+real_T kvdueutvdy;
+int32_T msg0iloc2m[4];
+int32_T cjstzlx3wy[256];
+uint16_T fd0gtwjkhf[256];
+int8_T j3zcvroyqq[1000];
+uint8_T px2z1c0ihb[2000];
+uint8_T fus0odfbsp[4];
+int32_T i;
+int8_T varargout_1_p;
+creal_T g4rielczvg;
+int32_T msg0iloc2m_p;
+uint8_T fus0odfbsp_p;
+%closefile localVarDecl
+%assign tlcOutputsFcnOfS2B1 = OpaqueTLCBlockFcn("Outputs", 2, 1, 0, 9)
+%assign tlcOutputsFcnOfS2B2 = OpaqueTLCBlockFcn("Outputs", 2, 2, 0, 9)
+%assign tlcOutputsFcnOfS2B5 = OpaqueTLCBlockFcn("Outputs", 2, 5, 0, 9)
+%assign tlcOutputsFcnOfS2B6 = OpaqueTLCBlockFcn("Outputs", 2, 6, 0, 9)
+%assign tlcOutputsFcnOfS2B7 = OpaqueTLCBlockFcn("Outputs", 2, 7, 0, 9)
+%<SLibGetRootInportsFromFile(system, TLC_FALSE)>
+%<SLibGenerateExtModeOutput(system)>
+if (%<(SLibCGIRIsSampleHit(2, 2))>) {
+    %<(SLibCGCallSubFcn("pncoxqsm0f", ["rtB.cjn5jksnxu"], 0, 9, 0))>;
+    for (i = 0; i < 1000; i++) {
+        varargout_1_p = (int8_T)(rtB.cjn5jksnxu[i] > hpkt4fhpjt);
+        outIdx = (int32_T)((varargout_1_p << 8) + rtDW.mzxjssz1dj);
+        rtDW.mzxjssz1dj = rtConstP.hyqto4grft[outIdx];
+        rtB.mrl1cioaoz[(i << 1) + 1] = (int32_T)(rtConstP.ophy3c5wsv[outIdx] & 1U);
+        rtB.mrl1cioaoz[i << 1] = (int32_T)(rtConstP.ophy3c5wsv[outIdx] >> 1U & 1U);
+        varargout_1[i] = varargout_1_p;
+    }
+    for (i = 0; i < 2000; i++) {
+        rtB.kj2pj5g2or[i] = rtB.mrl1cioaoz[(uint32_T)(rtConstP.bvzc0y32ak[i] - 1)];
+    }
+    inIdx = 0;
+    outIdx = 0;
+    for (i = 0; i < 2000; i++) {
+        sym = rtB.kj2pj5g2or[inIdx];
+        inIdx++;
+        rtB.koknonu1mw[outIdx].re = rtConstP.grdu1rtprl[(int32_T)sym << 1];
+        rtB.koknonu1mw[outIdx].im = rtConstP.grdu1rtprl[((int32_T)sym << 1) + 1];
+        outIdx++;
+    }
+    %<(SLibCGCallSubFcn("RandSrc_GZ_Z", ["rtB.abbjgjq0fv", "&rtP.RandomSource_MeanRTP", "1", "&rtP.RandomSource_VarianceRTP", "1", "rtDW.fegn3yjkdl", "1", "2000"], 0, 9, 1))>;
+    outIdx = 0;
+    rtDW.hp1nd2erdm = muDoubleScalarSqrt(rtP.AWGNChannel1_Ps * 1.0E-5 / (muDoubleScalarPower(10.0, rtP.EbN0 / 10.0) * 5.0E-6));
+    for (inIdx = 0; inIdx < 2000; inIdx++) {
+        rtB.ni1blk50f0[outIdx].re = rtDW.hp1nd2erdm * rtB.abbjgjq0fv[outIdx].re;
+        rtB.ni1blk50f0[outIdx].im = rtDW.hp1nd2erdm * rtB.abbjgjq0fv[outIdx].im;
+        rtB.ni1blk50f0[outIdx].re += rtB.koknonu1mw[outIdx].re;
+        rtB.ni1blk50f0[outIdx].im += rtB.koknonu1mw[outIdx].im;
+        outIdx++;
+    }
+    for (i = 0; i < 2000; i++) {
+        if (rtB.ni1blk50f0[i].re > 0.0) {
+            inIdx = 0;
+        } else if (rtB.ni1blk50f0[i].re < 0.0) {
+            inIdx = 1;
+        } else {
+            inIdx = !(rtB.ni1blk50f0[i].im == 0.0);
+        }
+        rtB.mrl1cioaoz[i] = inIdx % 2;
+    }
+    inIdx = 0;
+    outIdx = 0;
+    for (i = 0; i < 2000; i++) {
+        sym = rtB.mrl1cioaoz[inIdx];
+        inIdx++;
+        rtB.abbjgjq0fv[outIdx].re = rtConstP.grdu1rtprl[(int32_T)sym << 1];
+        rtB.abbjgjq0fv[outIdx].im = rtConstP.grdu1rtprl[((int32_T)sym << 1) + 1];
+        outIdx++;
+    }
+    for (i = 0; i < 2000; i++) {
+        g4rielczvg.re = rtB.ni1blk50f0[i].re - rtB.abbjgjq0fv[i].re;
+        g4rielczvg.im = rtB.ni1blk50f0[i].im - rtB.abbjgjq0fv[i].im;
+        rtB.abbjgjq0fv[i] = g4rielczvg;
+    }
+    for (i = 0; i < 2000; i += 2000) {
+        for (inIdx = i; inIdx < i + 1; inIdx++) {
+            rtDW.frj5frm5pi = rtB.abbjgjq0fv[inIdx];
+            rtDW.ob5etkajvn = rtB.abbjgjq0fv[inIdx].re * rtB.abbjgjq0fv[inIdx].re + rtB.abbjgjq0fv[inIdx].im * rtB.abbjgjq0fv[inIdx].im;
+            outIdx = 1;
+            for (tmpV = 1998; tmpV >= 0; tmpV += -1) {
+                msg0iloc2m_p = inIdx + outIdx;
+                rtDW.frj5frm5pi.re += rtB.abbjgjq0fv[msg0iloc2m_p].re;
+                rtDW.frj5frm5pi.im += rtB.abbjgjq0fv[msg0iloc2m_p].im;
+                rtDW.ob5etkajvn += rtB.abbjgjq0fv[msg0iloc2m_p].re * rtB.abbjgjq0fv[msg0iloc2m_p].re + rtB.abbjgjq0fv[msg0iloc2m_p].im * rtB.abbjgjq0fv[msg0iloc2m_p].im;
+                outIdx++;
+            }
+            kvdueutvdy = muDoubleScalarSqrt(muDoubleScalarAbs((rtDW.ob5etkajvn - (rtDW.frj5frm5pi.re * rtDW.frj5frm5pi.re + rtDW.frj5frm5pi.im * rtDW.frj5frm5pi.im) / 2000.0) / 1999.0));
+        }
+    }
+    for (i = 0; i < 2000; i++) {
+        rtB.d2gn1rcqlr[i] = rtB.ni1blk50f0[i].re / kvdueutvdy * rtP.Gain_Gain_i3nepwob24;
+    }
+%<tlcOutputsFcnOfS2B1>\
+    for (i = 0; i < 2000; i++) {
+        rtB.mrl1cioaoz[(uint32_T)(rtConstP.bvzc0y32ak[i] - 1)] = k4lrmynhm4[i];
+    }
+    for (i = 0; i < 1000; i++) {
+        outIdx = (i << 1) + 1;
+        /* Branch Metric Computation */
+        for (inIdx = 0; inIdx < 4; inIdx++) {
+            tmpV = rtB.mrl1cioaoz[outIdx];
+            if ((inIdx & 1) != 0) {
+                tmpV = 255 - rtB.mrl1cioaoz[outIdx];
+            }
+            msg0iloc2m_p = tmpV;
+            tmpV = rtB.mrl1cioaoz[outIdx - 1];
+            if ((int32_T)((uint32_T)inIdx >> 1) != 0) {
+                tmpV = 255 - rtB.mrl1cioaoz[outIdx - 1];
+            }
+            msg0iloc2m_p += tmpV;
+            msg0iloc2m[inIdx] = msg0iloc2m_p;
+        }
+        /* State Metric Update */
+        count = (uint32_T)%<(SLibCGCallSubFcn("ACS_fxp_s32_s32", ["256", "cjstzlx3wy", "2", "msg0iloc2m", "rtDW.ijgcmqcpnx", "rtDW.e4wo51thd0", "rtDW.ovvf3acabt", "&rtDW.gbrz1s5yl1", "rtConstP.hyqto4grft", "rtConstP.ophy3c5wsv", "32767"], 0, 9, 2))>;
+        /* Traceback decoding */
+        outIdx = rtDW.gbrz1s5yl1;
+        input = 0U;
+        for (inIdx = 0; inIdx < 65; inIdx++) {
+            input = rtDW.ovvf3acabt[(outIdx << 8) + count];
+            count = rtDW.e4wo51thd0[(outIdx << 8) + count];
+            if (outIdx > 0) {
+                outIdx--;
+            } else {
+                outIdx = 64;
+            }
+        }
+        j3zcvroyqq[i] = (int8_T)(input & 1U);
+        /* Increment (mod TbDepth) the traceback index and store */
+        if (rtDW.gbrz1s5yl1 < 64) {
+            rtDW.gbrz1s5yl1++;
+        } else {
+            rtDW.gbrz1s5yl1 = 0;
+        }
+    }
+    kvdueutvdy = 0.0;
+    sym = 0.0;
+    ratio = 0.0;
+    for (outIdx = 0; outIdx < 1000; outIdx++) {
+        rtDW.os12ld4eaq[rtDW.hf0gtxgtu3] = varargout_1[outIdx];
+        if (rtDW.hf0gtxgtu3 == 64) {
+            rtDW.hf0gtxgtu3 = 0;
+        } else {
+            rtDW.hf0gtxgtu3++;
+        }
+        if (rtDW.cz13snq0u4 < 64) {
+            rtDW.cz13snq0u4++;
+        } else {
+            if (rtDW.odmtinmbsl[outIdx]) {
+                sym++;
+                if (rtDW.os12ld4eaq[rtDW.hf0gtxgtu3] != j3zcvroyqq[outIdx]) {
+                    kvdueutvdy++;
+                }
+            }
+        }
+    }
+    rtDW.ovm0dm2lv5 += sym;
+    rtDW.dk0duuz2ek += kvdueutvdy;
+    if (rtDW.ovm0dm2lv5 > 0.0) {
+        ratio = rtDW.dk0duuz2ek / rtDW.ovm0dm2lv5;
+    }
+    rtB.k1ghhi042t[0U] = ratio;
+    rtB.k1ghhi042t[1U] = rtDW.dk0duuz2ek;
+    rtB.k1ghhi042t[2U] = rtDW.ovm0dm2lv5;
+    for (i = 0; i < 2000; i++) {
+        if (rtB.ni1blk50f0[i].re > 0.0) {
+            inIdx = 0;
+        } else if (rtB.ni1blk50f0[i].re < 0.0) {
+            inIdx = 1;
+        } else {
+            inIdx = !(rtB.ni1blk50f0[i].im == 0.0);
+        }
+        k4lrmynhm4[i] = (uint8_T)((uint8_T)(int32_T)muDoubleScalarRem(inIdx % 2, 2.0) & 1);
+        px2z1c0ihb[(uint32_T)(rtConstP.bvzc0y32ak[i] - 1)] = k4lrmynhm4[i];
+    }
+    for (i = 0; i < 1000; i++) {
+        outIdx = (i << 1) + 1;
+        /* Branch Metric Computation */
+        for (inIdx = 0; inIdx < 4; inIdx++) {
+            tmpV_p = (uint8_T)(px2z1c0ihb[outIdx] & 3);
+            if ((inIdx & 1) != 0) {
+                tmpV_p = (uint8_T)((uint8_T)(1U - tmpV_p) & 3);
+            }
+            fus0odfbsp_p = (uint8_T)(tmpV_p & 3);
+            tmpV_p = (uint8_T)(px2z1c0ihb[outIdx - 1] & 3);
+            if ((int32_T)((uint32_T)inIdx >> 1) != 0) {
+                tmpV_p = (uint8_T)((uint8_T)(1U - tmpV_p) & 3);
+            }
+            fus0odfbsp_p = (uint8_T)((uint8_T)((uint32_T)fus0odfbsp_p + tmpV_p) & 3);
+            fus0odfbsp[inIdx] = fus0odfbsp_p;
+        }
+        /* State Metric Update */
+        count = (uint32_T)%<(SLibCGCallSubFcn("ACS_fxp_u16_u2", ["256", "fd0gtwjkhf", "2", "fus0odfbsp", "rtDW.k2lcdnm3ar", "rtDW.dm3rt02hxt", "rtDW.bijyajwwui", "&rtDW.austahaygk", "rtConstP.hyqto4grft", "rtConstP.ophy3c5wsv", "32767U"], 0, 9, 3))>;
+        /* Traceback decoding */
+        outIdx = rtDW.austahaygk;
+        input = 0U;
+        for (inIdx = 0; inIdx < 65; inIdx++) {
+            input = rtDW.bijyajwwui[(outIdx << 8) + count];
+            count = rtDW.dm3rt02hxt[(outIdx << 8) + count];
+            if (outIdx > 0) {
+                outIdx--;
+            } else {
+                outIdx = 64;
+            }
+        }
+        j3zcvroyqq[i] = (int8_T)(input & 1U);
+        /* Increment (mod TbDepth) the traceback index and store */
+        if (rtDW.austahaygk < 64) {
+            rtDW.austahaygk++;
+        } else {
+            rtDW.austahaygk = 0;
+        }
+    }
+    kvdueutvdy = 0.0;
+    sym = 0.0;
+    ratio = 0.0;
+    for (i = 0; i < 1000; i++) {
+        rtDW.nz2qv3hij4[rtDW.aoxbt3zfyo] = varargout_1[i];
+        if (rtDW.aoxbt3zfyo == 64) {
+            rtDW.aoxbt3zfyo = 0;
+        } else {
+            rtDW.aoxbt3zfyo++;
+        }
+        if (rtDW.gogj4hvzov < 64) {
+            rtDW.gogj4hvzov++;
+        } else {
+            if (rtDW.kgigck4tso[i]) {
+                sym++;
+                if (rtDW.nz2qv3hij4[rtDW.aoxbt3zfyo] != j3zcvroyqq[i]) {
+                    kvdueutvdy++;
+                }
+            }
+        }
+    }
+    rtDW.gmiet4ar11 += sym;
+    rtDW.candgvoyhp += kvdueutvdy;
+    if (rtDW.gmiet4ar11 > 0.0) {
+        ratio = rtDW.candgvoyhp / rtDW.gmiet4ar11;
+    }
+    rtB.athdrlisra[0U] = ratio;
+    rtB.athdrlisra[1U] = rtDW.candgvoyhp;
+    rtB.athdrlisra[2U] = rtDW.gmiet4ar11;
+}
+memcpy(&rtB.lrtfdlp21l[0], &rtX.gk2cl13qcc[0], 2000U * sizeof(real_T));
+%<tlcOutputsFcnOfS2B2>\
+if (%<(SLibCGIRIsSampleHit(1, 2))>) {
+    memcpy(&rtB.o5duos4541[0], &rtDW.c5mww0gz4f[0], 2000U * sizeof(real_T));
+}
+if (%<(SLibCG_SE(LibGetT()))> >= rtP.K1_Value) {
+    for (i = 0; i < 2000; i++) {
+        rtB.hoe4snhyrl[i] = (rtB.lrtfdlp21l[i] - rtB.m41qrgqv0f[i]) * rtP.Gain_Gain;
+    }
+} else {
+    memcpy(&rtB.hoe4snhyrl[0], &rtB.o5duos4541[0], 2000U * sizeof(real_T));
+}
+if (%<(SLibCGIRIsSampleHit(2, 2))>) {
+%<tlcOutputsFcnOfS2B5>\
+%<tlcOutputsFcnOfS2B6>\
+    for (i = 0; i < 2000; i++) {
+        rtB.mk4ejrcy2w[i] = rtB.koknonu1mw[i].re * rtB.koknonu1mw[i].re + rtB.koknonu1mw[i].im * rtB.koknonu1mw[i].im;
+    }
+%<tlcOutputsFcnOfS2B7>\
+}
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
+%function OutputsFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 9, fcnProtoType)>
+%endfunction

@@ -1,0 +1,54 @@
+%implements s2_b0_6khyi_PublicModuleTypes "C"
+
+%function PublicModuleTypes(block) Output
+
+#ifndef typedef_pcnbb4npd2
+#define typedef_pcnbb4npd2
+typedef struct
+{
+    int32_T isInitialized;
+} pcnbb4npd2;
+#endif /*typedef_pcnbb4npd2*/
+#ifndef typedef_lwccxxphyo
+#define typedef_lwccxxphyo
+typedef struct
+{
+    char_T f1[7];
+} lwccxxphyo;
+#endif /*typedef_lwccxxphyo*/
+#ifndef typedef_lwccxxphyoe
+#define typedef_lwccxxphyoe
+typedef struct
+{
+    char_T f1[3];
+    char_T f2[4];
+    char_T f3[2];
+    real_T f4;
+    char_T f5[2];
+    real_T f6;
+    char_T f7[6];
+} lwccxxphyoe;
+#endif /*typedef_lwccxxphyoe*/
+#ifndef typedef_lwccxxphyoe3
+#define typedef_lwccxxphyoe3
+typedef struct
+{
+    char_T f1[6];
+    char_T f2[4];
+    char_T f3[6];
+    char_T f4[6];
+} lwccxxphyoe3;
+#endif /*typedef_lwccxxphyoe3*/
+#ifndef typedef_lwccxxphyoe3e
+#define typedef_lwccxxphyoe3e
+typedef struct
+{
+    char_T f1[6];
+    char_T f2[6];
+    char_T f3[6];
+    char_T f4[4];
+    char_T f5[8];
+    char_T f6[7];
+} lwccxxphyoe3e;
+#endif /*typedef_lwccxxphyoe3e*/
+%endfunction

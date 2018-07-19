@@ -1,0 +1,26 @@
+%implements s2_b0_aniyi_Terminate "C"
+
+%function Terminate(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcTerminateFcnOfS2B2 = OpaqueTLCBlockFcn("Terminate", 2, 2, 0, 12)
+%assign tlcTerminateFcnOfS2B5 = OpaqueTLCBlockFcn("Terminate", 2, 5, 0, 12)
+%assign tlcTerminateFcnOfS2B6 = OpaqueTLCBlockFcn("Terminate", 2, 6, 0, 12)
+if (rtDW.bbhbwjjf0z.isInitialized == 1) {
+    rtDW.bbhbwjjf0z.isInitialized = 2;
+}
+%<tlcTerminateFcnOfS2B2>\
+%<tlcTerminateFcnOfS2B5>\
+%<tlcTerminateFcnOfS2B6>\
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function TerminateFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Terminate(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 12, fcnProtoType)>
+%endfunction

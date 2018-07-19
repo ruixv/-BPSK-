@@ -1,0 +1,245 @@
+%implements s2_b0_nniyi_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(2, 0)> %% B_2_13_0
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+int32_T inIdx;
+int32_T outIdx;
+uint32_T count;
+int32_T indx2;
+int32_T tmpV;
+uint32_T input;
+real_T sym;
+real_T ratio;
+real_T rtb_B_2_10_0;
+int32_T i;
+B_v2_2_S_T *_rtB;
+P_v2_2_S_T *_rtP;
+X_v2_2_S_T *_rtX;
+DW_v2_2_S_T *_rtDW;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+%assign tlcOutputsFcnOfS2B1 = OpaqueTLCBlockFcn("Outputs", 2, 1, 0, 4)
+%assign tlcOutputsFcnOfS2B2 = OpaqueTLCBlockFcn("Outputs", 2, 2, 0, 4)
+%assign tlcOutputsFcnOfS2B4 = OpaqueTLCBlockFcn("Outputs", 2, 4, 0, 4)
+%assign tlcOutputsFcnOfS2B5 = OpaqueTLCBlockFcn("Outputs", 2, 5, 0, 4)
+%<SLibCG_TrackDW(2)>\
+_rtDW = %<(SLibCG_SE(SLibGetDWorkStructPtr()))>;
+%<SLibCG_TrackContStates(2)>\
+_rtX = %<(SLibCG_SE(SLibGetContStatesStructPtr()))>;
+%<SLibCG_TrackParam(2)>\
+_rtP = %<(SLibCG_SE(SLibGetParamStructPtr()))>;
+%<SLibCG_TrackBlockIO(2)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+if (%<(SLibCGIRIsSampleHit(2, 2))>) {
+    ssCallAccelRunBlock(%<tSimStruct>, 0, 0, SS_CALL_MDL_OUTPUTS);
+    for (i = 0; i < 1000; i++) {
+        outIdx = (int32_T)(((int32_T)muDoubleScalarFloor(_rtB->B_0_0_0[i]) << 8) + _rtDW->currState);
+        _rtDW->currState = v2_2_S_rtConstP.pooled3[outIdx];
+        _rtB->B_2_1_0[(i << 1) + 1] = (int32_T)v2_2_S_rtConstP.pooled4[outIdx] & 1;
+        _rtB->B_2_1_0[i << 1] = (int32_T)(v2_2_S_rtConstP.pooled4[outIdx] >> 1U) & 1;
+    }
+    for (i = 0; i < 2000; i++) {
+        _rtB->B_2_2_0[i] = _rtB->B_2_1_0[(uint32_T)(v2_2_S_rtConstP.pooled2[i] - 1)];
+    }
+    inIdx = 0;
+    outIdx = 0;
+    for (i = 0; i < 2000; i++) {
+        sym = _rtB->B_2_2_0[inIdx];
+        inIdx++;
+        tmpV = (int32_T)muDoubleScalarFloor(sym);
+        _rtB->B_2_3_0[outIdx].re = v2_2_S_rtConstP.pooled1[tmpV << 1];
+        _rtB->B_2_3_0[outIdx].im = v2_2_S_rtConstP.pooled1[(tmpV << 1) + 1];
+        outIdx++;
+    }
+%if SLibCG_FcnCallArgAccessed(0,4,0,8)
+%<SLibCG_AccessArg(0 ,4, 0)>
+%endif
+
+    %<(SLibCGCallSubFcn("RandSrc_GZ_Z", ["_rtB->B_2_4_0", "&_rtP->P_10", "1", "&_rtP->P_1", "1", "_rtDW->RandomSource_STATE_DWORK", "1", "2000", "%<tSimStruct>"], 0, 4, 0))>;
+    outIdx = 0;
+    _rtDW->STDDEV = muDoubleScalarSqrt(_rtP->P_3 * 1.0E-5 / (muDoubleScalarPower(10.0, _rtP->P_2 / 10.0) * 5.0E-6));
+    for (inIdx = 0; inIdx < 2000; inIdx++) {
+        _rtB->B_2_5_0[outIdx].re = _rtDW->STDDEV * _rtB->B_2_4_0[outIdx].re;
+        _rtB->B_2_5_0[outIdx].im = _rtDW->STDDEV * _rtB->B_2_4_0[outIdx].im;
+        _rtB->B_2_5_0[outIdx].re += _rtB->B_2_3_0[outIdx].re;
+        _rtB->B_2_5_0[outIdx].im += _rtB->B_2_3_0[outIdx].im;
+        outIdx++;
+    }
+    for (i = 0; i < 2000; i++) {
+        _rtB->B_2_2_0[i] = _rtB->B_2_5_0[i].re;
+        if (_rtB->B_2_5_0[i].re > 0.0) {
+            inIdx = 0;
+        } else if (_rtB->B_2_5_0[i].re < 0.0) {
+            inIdx = 1;
+        } else {
+            inIdx = !(_rtB->B_2_5_0[i].im == 0.0);
+        }
+        _rtB->B_2_1_0[i] = inIdx % 2;
+    }
+    inIdx = 0;
+    outIdx = 0;
+    for (i = 0; i < 2000; i++) {
+        sym = _rtB->B_2_1_0[inIdx];
+        inIdx++;
+        tmpV = (int32_T)muDoubleScalarFloor(sym);
+        _rtB->B_2_4_0[outIdx].re = v2_2_S_rtConstP.pooled1[tmpV << 1];
+        _rtB->B_2_4_0[outIdx].im = v2_2_S_rtConstP.pooled1[(tmpV << 1) + 1];
+        outIdx++;
+    }
+    for (inIdx = 0; inIdx < 2000; inIdx++) {
+        _rtB->B_2_5_0[inIdx].re -= _rtB->B_2_4_0[inIdx].re;
+        _rtB->B_2_5_0[inIdx].im -= _rtB->B_2_4_0[inIdx].im;
+    }
+    for (i = 0; i < 2000; i += 2000) {
+        for (inIdx = i; inIdx < i + 1; inIdx++) {
+            _rtDW->StandardDeviation_AccVal = _rtB->B_2_5_0[inIdx];
+            _rtDW->StandardDeviation_SqData = _rtB->B_2_5_0[inIdx].re * _rtB->B_2_5_0[inIdx].re + _rtB->B_2_5_0[inIdx].im * _rtB->B_2_5_0[inIdx].im;
+            outIdx = 1;
+            for (tmpV = 1998; tmpV >= 0; tmpV += -1) {
+                indx2 = inIdx + outIdx;
+                _rtDW->StandardDeviation_AccVal.re += _rtB->B_2_5_0[indx2].re;
+                _rtDW->StandardDeviation_AccVal.im += _rtB->B_2_5_0[indx2].im;
+                _rtDW->StandardDeviation_SqData += _rtB->B_2_5_0[indx2].re * _rtB->B_2_5_0[indx2].re + _rtB->B_2_5_0[indx2].im * _rtB->B_2_5_0[indx2].im;
+                outIdx++;
+            }
+            rtb_B_2_10_0 = muDoubleScalarSqrt(muDoubleScalarAbs((_rtDW->StandardDeviation_SqData - (_rtDW->StandardDeviation_AccVal.re * _rtDW->StandardDeviation_AccVal.re + _rtDW->StandardDeviation_AccVal.im * _rtDW->StandardDeviation_AccVal.im) / 2000.0) / 1999.0));
+        }
+    }
+    for (inIdx = 0; inIdx < 2000; inIdx++) {
+        _rtB->B_2_2_0[inIdx] /= rtb_B_2_10_0;
+        _rtB->B_2_2_0[inIdx] *= _rtP->P_4;
+    }
+%<tlcOutputsFcnOfS2B1>\
+    for (i = 0; i < 2000; i++) {
+        _rtB->B_2_1_0[i] = B_2_13_0[i];
+        _rtB->B_2_15_0[(uint32_T)(v2_2_S_rtConstP.pooled2[i] - 1)] = _rtB->B_2_1_0[i];
+    }
+    for (i = 0; i < 1000; i++) {
+        outIdx = (i << 1) + 1;
+        /* Branch Metric Computation */
+        for (inIdx = 0; inIdx < 4; inIdx++) {
+            _rtDW->bMetric[inIdx] = 0;
+            tmpV = (int32_T)muDoubleScalarFloor(_rtB->B_2_15_0[outIdx]);
+            if ((inIdx & 1) != 0) {
+                tmpV = 255 - tmpV;
+            }
+            _rtDW->bMetric[inIdx] += tmpV;
+            tmpV = (int32_T)muDoubleScalarFloor(_rtB->B_2_15_0[outIdx - 1]);
+            if ((int32_T)((uint32_T)inIdx >> 1) != 0) {
+                tmpV = 255 - tmpV;
+            }
+            _rtDW->bMetric[inIdx] += tmpV;
+        }
+        /* State Metric Update */
+%if SLibCG_FcnCallArgAccessed(0,4,1,11)
+%<SLibCG_AccessArg(0 ,4, 0)>
+%endif
+
+        count = (uint32_T)%<(SLibCGCallSubFcn("ACS_fxp_s32_s32", ["256", "_rtDW->tempMetric", "2", "_rtDW->bMetric", "_rtDW->stateMetric", "_rtDW->tbState", "_rtDW->tbInput", "&_rtDW->tbPtr", "v2_2_S_rtConstP.pooled3", "v2_2_S_rtConstP.pooled4", "32767", "%<tSimStruct>"], 0, 4, 1))>;
+        /* Traceback decoding */
+        outIdx = _rtDW->tbPtr;
+        input = 0U;
+        for (inIdx = 0; inIdx < 65; inIdx++) {
+            input = _rtDW->tbInput[(outIdx << 8) + count];
+            count = _rtDW->tbState[(outIdx << 8) + count];
+            if (outIdx > 0) {
+                outIdx--;
+            } else {
+                outIdx = 64;
+            }
+        }
+        _rtB->B_2_16_0[i] = (int32_T)input & 1;
+        /* Increment (mod TbDepth) the traceback index and store */
+        if (_rtDW->tbPtr < 64) {
+            _rtDW->tbPtr++;
+        } else {
+            _rtDW->tbPtr = 0;
+        }
+    }
+    rtb_B_2_10_0 = 0.0;
+    sym = 0.0;
+    ratio = 0.0;
+    for (outIdx = 0; outIdx < 1000; outIdx++) {
+        _rtDW->txBuff[_rtDW->curTx] = _rtB->B_0_0_0[outIdx];
+        if (_rtDW->curTx == 64) {
+            _rtDW->curTx = 0;
+        } else {
+            _rtDW->curTx++;
+        }
+        if (_rtDW->STDelay < 64) {
+            _rtDW->STDelay++;
+        } else {
+            if (_rtDW->useFrame[outIdx]) {
+                sym++;
+                if (_rtDW->txBuff[_rtDW->curTx] != _rtB->B_2_16_0[outIdx]) {
+                    rtb_B_2_10_0++;
+                }
+            }
+        }
+    }
+    _rtDW->symbols += sym;
+    _rtDW->errors += rtb_B_2_10_0;
+    if (_rtDW->symbols > 0.0) {
+        ratio = _rtDW->errors / _rtDW->symbols;
+    }
+    _rtB->B_2_17_0[0U] = ratio;
+    _rtB->B_2_17_0[1U] = _rtDW->errors;
+    _rtB->B_2_17_0[2U] = _rtDW->symbols;
+    ssCallAccelRunBlock(%<tSimStruct>, 2, 18, SS_CALL_MDL_OUTPUTS);
+}
+memcpy(&_rtB->B_2_19_0[0], &_rtX->integrator_CSTATE[0], 2000U * sizeof(real_T));
+%<tlcOutputsFcnOfS2B2>\
+if (%<(SLibCGIRIsSampleHit(1, 2))>) {
+    _rtB->B_2_22_0 = _rtP->P_8;
+    memcpy(&_rtB->B_2_24_0[0], &_rtDW->Memory_PreviousInput[0], 2000U * sizeof(real_T));
+}
+if (%<(SLibCG_SE(LibGetT()))> >= _rtB->B_2_22_0) {
+    for (i = 0; i < 2000; i++) {
+        _rtB->B_1_0_0[i] = _rtB->B_2_19_0[i] - _rtB->B_2_20_0[i];
+        _rtB->B_1_1_0[i] = _rtP->P_0 * _rtB->B_1_0_0[i];
+        _rtB->B_2_26_0[i] = _rtB->B_1_1_0[i];
+    }
+} else {
+    memcpy(&_rtB->B_2_26_0[0], &_rtB->B_2_24_0[0], 2000U * sizeof(real_T));
+}
+ssCallAccelRunBlock(%<tSimStruct>, 2, 27, SS_CALL_MDL_OUTPUTS);
+if (%<(SLibCGIRIsSampleHit(2, 2))>) {
+%<tlcOutputsFcnOfS2B4>\
+    for (i = 0; i < 2000; i++) {
+        _rtB->B_2_29_0[i] = _rtB->B_2_3_0[i].re * _rtB->B_2_3_0[i].re + _rtB->B_2_3_0[i].im * _rtB->B_2_3_0[i].im;
+    }
+%<tlcOutputsFcnOfS2B5>\
+}
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 4, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 4, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(0, 4, 0)>
+%endif
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
+%function OutputsFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 4, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 4, fcnProtoType)>
+%endfunction

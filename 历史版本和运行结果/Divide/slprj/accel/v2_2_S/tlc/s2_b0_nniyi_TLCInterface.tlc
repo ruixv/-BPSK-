@@ -1,0 +1,208 @@
+%implements s2_b0_nniyi_TLCInterface "C"
+
+%function getInputAddr_2_1_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtB->B_2_2_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_2_1_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtB->B_2_2_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutputAddr_2_1_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCGIRAccessLocalVar(2, 0)> %% B_2_13_0
+
+%return "&B_2_13_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutput_2_1_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCGIRAccessLocalVar(2, 0)> %% B_2_13_0
+
+%return "B_2_13_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_2_2_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtB->B_2_19_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_2_2_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtB->B_2_19_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutputAddr_2_2_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtB->B_2_20_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutput_2_2_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtB->B_2_20_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_2_2_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->TransportDelay_RWORK"
+%endfunction
+
+%function getDWork_2_2_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->TransportDelay_RWORK"
+%endfunction
+
+%function getDWorkAddr_2_2_0_4_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->TransportDelay_IWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_2_2_0_4_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->TransportDelay_IWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_2_2_0_4_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->TransportDelay_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_2_2_0_4_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->TransportDelay_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getParamAddr_2_2_0_4_1_6(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtP->P_6"
+%endfunction
+
+%function getParam_2_2_0_4_1_6(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtP->P_6"
+%endfunction
+
+%function getParamAddr_2_2_0_4_1_7(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtP->P_7"
+%endfunction
+
+%function getParam_2_2_0_4_1_7(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtP->P_7"
+%endfunction
+
+%function getInputAddr_2_4_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtB->B_2_17_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_2_4_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtB->B_2_17_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_2_4_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->ToWorkspace1_PWORK"
+%endfunction
+
+%function getDWork_2_4_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->ToWorkspace1_PWORK"
+%endfunction
+
+%function getInputAddr_2_5_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtB->B_2_2_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_2_5_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtB->B_2_2_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_2_5_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->ToWorkspace2_PWORK"
+%endfunction
+
+%function getDWork_2_5_0_4_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->ToWorkspace2_PWORK"
+%endfunction
+
+%function getInputAddr_2_2_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtB->B_2_19_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_2_2_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtB->B_2_19_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutputAddr_2_2_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtB->B_2_20_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutput_2_2_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtB->B_2_20_0" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_2_2_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->TransportDelay_RWORK"
+%endfunction
+
+%function getDWork_2_2_0_5_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->TransportDelay_RWORK"
+%endfunction
+
+%function getDWorkAddr_2_2_0_5_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->TransportDelay_IWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_2_2_0_5_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->TransportDelay_IWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_2_2_0_5_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->TransportDelay_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_2_2_0_5_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->TransportDelay_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getParamAddr_2_2_0_5_1_6(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackParam(2)>
+
+%return "&_rtP->P_6"
+%endfunction
+
+%function getParam_2_2_0_5_1_6(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackParam(2)>
+
+%return "_rtP->P_6"
+%endfunction
+
+%function getParamAddr_2_2_0_5_1_7(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackParam(2)>
+
+%return "&_rtP->P_7"
+%endfunction
+
+%function getParam_2_2_0_5_1_7(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackParam(2)>
+
+%return "_rtP->P_7"
+%endfunction
+

@@ -1,0 +1,79 @@
+%implements s2_b0_nniyi_SystemInitialize "C"
+
+%function SystemInitialize(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+int32_T i;
+P_v2_2_S_T *_rtP;
+X_v2_2_S_T *_rtX;
+DW_v2_2_S_T *_rtDW;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+%<SLibCG_TrackDW(2)>\
+_rtDW = %<(SLibCG_SE(SLibGetDWorkStructPtr()))>;
+%<SLibCG_TrackContStates(2)>\
+_rtX = %<(SLibCG_SE(SLibGetContStatesStructPtr()))>;
+%<SLibCG_TrackParam(2)>\
+_rtP = %<(SLibCG_SE(SLibGetParamStructPtr()))>;
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+_rtDW->currState = 0U;
+_rtDW->RandomSource_SEED_DWORK = _rtP->P_11;
+%if SLibCG_FcnCallArgAccessed(0,3,0,3)
+%<SLibCG_AccessArg(0 ,3, 0)>
+%endif
+
+%<(SLibCGCallSubFcn("RandSrcInitState_GZ", ["&_rtDW->RandomSource_SEED_DWORK", "_rtDW->RandomSource_STATE_DWORK", "1", "%<tSimStruct>"], 0, 3, 0))>;
+/* Set state metric for all zeros state equal to zero and all other state metrics equal to max values */
+_rtDW->maxVal = 32767;
+_rtDW->stateMetric[0U] = 0;
+for (i = 0; i < 255; i++) {
+    _rtDW->stateMetric[i + 1] = 32767;
+}
+/* Set traceback memory to zero */
+memset(&_rtDW->tbInput[0], 0, 16640U * sizeof(uint32_T));
+memset(&_rtDW->tbState[0], 0, 16640U * sizeof(uint32_T));
+_rtDW->tbPtr = 0;
+_rtDW->errors = 0.0;
+_rtDW->symbols = 0.0;
+_rtDW->STDelay = 0;
+_rtDW->curTx = 0;
+for (i = 0; i < 1000; i++) {
+    _rtDW->useFrame[i] = true;
+}
+for (i = 0; i < 2000; i++) {
+    _rtX->integrator_CSTATE[i] = _rtP->P_5;
+    _rtDW->Memory_PreviousInput[i] = _rtP->P_9;
+}
+ssCallAccelRunBlock(%<tSimStruct>, 0, 0, SS_CALL_MDL_INITIALIZE_CONDITIONS);
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("SystemInitialize", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "SystemInitialize"))
+%<SLibCG_AccessArg(0, 3, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 3, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "SystemInitialize", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "SystemInitialize"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(0, 3, 0)>
+%endif
+%<LibSetSystemField(system, "CachedSystemInitializeLocalVars", localVarDecl)>
+%endfunction
+%function SystemInitializeFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void SystemInitialize(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 3, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 3, fcnProtoType)>
+%endfunction
